@@ -56,19 +56,19 @@ public class AlarmClock_2884 {
         String split[] = inputData.split(":");
         if (!inputData.contains(":"))
             result.put(fail, "입력하신 문자열에 ':' 존재하지 않습니다.");
-         else if (inputData.length() > 5)
+        else if (inputData.length() > 5)
             result.put(fail, "입력하신 문자열의 길이가 맞지 않습니다.");
-         else if (!inputData.replace(":","").matches(regex))
+        else if (!inputData.replace(":","").matches(regex))
             result.put(fail, "숫자만 입력 가능합니다.");
-         else if (Integer.parseInt(split[0]) < 0 ||
+        else if (Integer.parseInt(split[0]) < 0 ||
                 Integer.parseInt(split[0]) > 24)
             result.put(fail, "입력하신 시간 형식이 맞지않습니다.(0~24까지 입력 가능)");
-         else if (Integer.parseInt(split[1]) < 0 ||
+        else if (Integer.parseInt(split[1]) < 0 ||
                 Integer.parseInt(split[1]) > 60)
             result.put(fail, "입력하신 시간 형식이 맞지않습니다.(0~24까지 입력 가능)");
-         else
+        else
             result.put(success, "알람이 성공적으로 설정되었습니다.");
-         return result;
+        return result;
     }
     private static void calculate() {
         //':' 문자 기준으로 문자를 자름 :
