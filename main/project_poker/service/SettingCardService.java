@@ -1,9 +1,6 @@
 package project_poker.service;
 
-import project_poker.dto.CardInfo;
-import project_poker.dto.CompletedCardInfo;
-import project_poker.dto.PokerUserInfo;
-import project_poker.dto.SuitInfo;
+import project_poker.dto.*;
 import project_poker.view.ShowResult;
 
 import java.util.ArrayList;
@@ -14,12 +11,13 @@ public class SettingCardService {
     //참여할 플레이어 갯수
 
     ShowResult view = new ShowResult();
-    private final Integer players = 5;
+    private final Integer players = 15;
     private List<PokerUserInfo> playerCard = new ArrayList<>();
-    private List<String> cardList= new ArrayList<>();
-    private List<String> board = new ArrayList<>();
+    private List<CardInfo> cardList= new ArrayList<>();
+    private List<CardInfo> board = new ArrayList<>();
 
     public void startGame() {
+        init();
         setCard();
         dealCard();
         setFlop();
@@ -27,22 +25,23 @@ public class SettingCardService {
         setLiver();
         view.showResult(setCardInfoObj());
     }
+    private void init() {
+        playerCard = new ArrayList<>();
+        cardList = new ArrayList<>();
+        board = new ArrayList<>();
+    }
 
     private void setCard() {
-        List<String> result = new ArrayList<>();
         // 카드 셋팅
         for (CardInfo cardInfo : CardInfo.values()) {
-            for (SuitInfo suitInfo : SuitInfo.values()) {
-                result.add(cardInfo.getName() +"/"+ suitInfo.getShade());
-            }
+            cardList.add(cardInfo);
         }
         // 카드 셔플
-        Collections.shuffle(result);
-        cardList = result;
+        Collections.shuffle(cardList);
     }
     //플레이어 갯수에 맞춰 카드를 나눠줌
     private void dealCard() {
-        String card;
+        CardInfo card;
         PokerUserInfo userInfo;
         for (int i = 0; i < players; i++) {
             userInfo = new PokerUserInfo();

@@ -1,14 +1,12 @@
 package project_poker.dto;
 
 public enum SuitInfo {
-    DIAMOND("diamond", "♦"),
-    SPADE("spade", "♠"),
-    HEART("heart", "❤"),
-    CLUB("club", "♣");
-    private final String name;
+    DIAMOND("♦"),
+    SPADE("♠"),
+    HEART("❤"),
+    CLUB("♣");
     private final String shade;
-    SuitInfo(String name, String shade) {
-        this.name = name;
+    SuitInfo(String shade) {
         this.shade = shade;
     }
     public String getShade() {

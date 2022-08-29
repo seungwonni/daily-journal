@@ -1,22 +1,31 @@
 package project_poker.dto;
 
 public class PokerUserInfo {
-    private String firstCard;
-    private String secondCard;
+    private CardInfo firstCard;
+    private CardInfo secondCard;
+    private HandRanking result;
 
-    public String getFirstCard() {
+    public CardInfo getFirstCard() {
         return firstCard;
     }
 
-    public void setFirstCard(String firstCard) {
+    public void setFirstCard(CardInfo firstCard) {
         this.firstCard = firstCard;
     }
 
-    public String getSecondCard() {
+    public CardInfo getSecondCard() {
         return secondCard;
     }
 
-    public void setSecondCard(String secondCard) {
+    public void setSecondCard(CardInfo secondCard) {
         this.secondCard = secondCard;
+    }
+
+    public HandRanking getResult() {
+        return result;
+    }
+
+    public void setResult(HandRanking result) {
+        this.result = result;
     }
 }
