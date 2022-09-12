@@ -8,6 +8,7 @@ public class PokerUserInfo {
     private CardInfo secondCard;
     private List<CardInfo> combinedCard;
     private HandRanking result;
+    private List<CardInfo> board;
 
     public CardInfo getFirstCard() {
         return firstCard;
@@ -43,5 +44,13 @@ public class PokerUserInfo {
 
     public void setResult(HandRanking result) {
         this.result = result;
+    }
+
+    public List<CardInfo> getBoard() {
+        return board;
+    }
+
+    public void setBoard(List<CardInfo> board) {
+        this.board = board;
     }
 }

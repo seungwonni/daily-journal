@@ -19,7 +19,11 @@ public class CalculateResultService {
         this.board = cardInfo.getBoard();
         for (PokerUserInfo playerCard : playerCards) {
             playerCard.combineCardWithBoards(board);
+            playerCard.setBoard(board);
             straightFlushCalcStrategy.calculate(cardInfo.getMaxShade(), playerCard);
+            if (playerCard.getResult() != HandRanking.PROCESSING) {
+                continue;
+            }
             handRangeCalcStrategy.calculate(playerCard, board);
         }
         return handRanking;

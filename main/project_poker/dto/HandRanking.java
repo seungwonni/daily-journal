@@ -1,6 +1,9 @@
 package project_poker.dto;
 
-import java.util.List;
+import project_poker.service.HandRangeCalcStrategy;
+import project_poker.util.MapCalcUtil;
+
+import java.util.*;
 
 public enum HandRanking {
     PROCESSING(null),
@@ -27,8 +30,18 @@ public enum HandRanking {
         this.value = value;
     }
     public static HandRanking calcMaxValue(HandRanking handRanking, List<CardInfo> result) {
-        Integer maxValue = result.stream().mapToInt(t->t.getNumber()).max().getAsInt();
-        handRanking.setValue(maxValue);
+        Map<Integer, Integer> map = new HashMap();
+        List<CardInfo> list = result;
+        for (CardInfo cardInfo: list) {
+            Integer count = map.get(cardInfo.getNumber());
+            if (count == null) {
+                map.put(cardInfo.getNumber(), 1);
+            } else {
+                map.put(cardInfo.getNumber(), count+1);
+            }
+        }
+        Integer maxValue = Collections.max(map.values());
+        handRanking.setValue(MapCalcUtil.getKey(map, maxValue));
         if (HandRanking.STRAIGHT_FLUSH == handRanking ||
                 HandRanking.STRAIGHT == handRanking) {
             CardInfo.rollBackALetter(result);

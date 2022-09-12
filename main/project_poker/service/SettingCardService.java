@@ -11,7 +11,7 @@ public class SettingCardService {
     //참여할 플레이어 갯수
 
     ShowResult view = new ShowResult();
-    private final Integer players = 15;
+    private final Integer players = 2;
     private List<PokerUserInfo> playerCard = new ArrayList<>();
     private List<CardInfo> cardList= new ArrayList<>();
     private List<CardInfo> board = new ArrayList<>();

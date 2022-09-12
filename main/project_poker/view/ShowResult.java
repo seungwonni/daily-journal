@@ -14,19 +14,18 @@ public class ShowResult {
         List<PokerUserInfo> playerCard = cardInfo.getPlayerCard();
         List<CardInfo> board = cardInfo.getBoard();
         for (int i = 0; i < playerCard.size();i++) {
-            System.out.println((i+1)+"번째 플레이어 : " + playerCard.get(i).getFirstCard() + "\t" + playerCard.get(i).getSecondCard());
+            System.out.println((i+1)+" player\t" + playerCard.get(i).getFirstCard() + "\t" + playerCard.get(i).getSecondCard());
         }
-        System.out.println("보드");
+        System.out.println("board");
         for (int i = 0; i < board.size();i++) {
             System.out.print(board.get(i)+ "\n");
         }
         System.out.println("\n\n");
         calculateResultService.calcResult(cardInfo);
         for (PokerUserInfo pokerUserInfo :cardInfo.getPlayerCard()) {
-            if (pokerUserInfo.getResult() == null) {
-                System.out.println(pokerUserInfo.getResult());
-            } else {
-                System.out.println(pokerUserInfo.getResult().getValue()+ " "+pokerUserInfo.getResult());
+            System.out.println(pokerUserInfo.getResult().getValue()+ " "+pokerUserInfo.getResult());
+            if (pokerUserInfo.getResult() == HandRanking.FLUSH) {
+                System.out.println("FLUSH");
             }
         }
     }

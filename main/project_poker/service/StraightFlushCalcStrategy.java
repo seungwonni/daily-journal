@@ -22,7 +22,13 @@ public class StraightFlushCalcStrategy {
             if (handRanking == HandRanking.STRAIGHT_FLUSH) {
                 playerCard.setResult(handRanking);
             }
+        } else {
+            handRanking = calcStraight(combinedCard);
+            if (handRanking == HandRanking.STRAIGHT) {
+                playerCard.setResult(handRanking);
+            }
         }
+
         playerCard.setResult(handRanking);
     }
     private HandRanking calcFlush(Map<String, Integer> shadeNum, List<CardInfo> combinedCard) {
@@ -56,7 +62,7 @@ public class StraightFlushCalcStrategy {
                 }
             }
         }
-        return royalCount == 5 ? HandRanking.ROYAL_STRAIGHT_FLUSH : HandRanking.PROCESSING;
+        return royalCount == 5 ? HandRanking.ROYAL_STRAIGHT_FLUSH : HandRanking.FLUSH;
     }
     protected HandRanking calcStraight(List<CardInfo> combinedCard) {
         CardInfo info = null;
@@ -85,7 +91,7 @@ public class StraightFlushCalcStrategy {
                 return HandRanking.PROCESSING;
             }
         }
-        return connectedCount >= 5 ? HandRanking.calcMaxValue(HandRanking.STRAIGHT_FLUSH, combinedCard) : HandRanking.PROCESSING;
+        return connectedCount >= 5 ? HandRanking.calcMaxValue(HandRanking.STRAIGHT, combinedCard) : HandRanking.PROCESSING;
     }
     protected HandRanking calcStraightFlush(List<CardInfo> result) {
         HandRanking handRanking = calcStraight(result);
