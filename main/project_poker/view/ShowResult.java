@@ -2,6 +2,7 @@ package project_poker.view;
 
 import project_poker.dto.CardInfo;
 import project_poker.dto.CompletedCardInfo;
+import project_poker.dto.HandRanking;
 import project_poker.dto.PokerUserInfo;
 import project_poker.service.CalculateResultService;
 
@@ -21,5 +22,12 @@ public class ShowResult {
         }
         System.out.println("\n\n");
         calculateResultService.calcResult(cardInfo);
+        for (PokerUserInfo pokerUserInfo :cardInfo.getPlayerCard()) {
+            if (pokerUserInfo.getResult() == null) {
+                System.out.println(pokerUserInfo.getResult());
+            } else {
+                System.out.println(pokerUserInfo.getResult().getValue()+ " "+pokerUserInfo.getResult());
+            }
+        }
     }
 }

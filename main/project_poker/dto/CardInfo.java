@@ -1,5 +1,7 @@
 package project_poker.dto;
 
+import java.util.List;
+
 public enum CardInfo {
     /**
      * 다이아 카드
@@ -93,5 +95,12 @@ public enum CardInfo {
 
     public static void convertALetter(CardInfo cardInfo) {
         cardInfo.setNumber(1);
+    }
+    public static void rollBackALetter(List<CardInfo> cardInfos) {
+        if (cardInfos.stream().anyMatch(t->t.getNumber() == 1)) {
+            CardInfo info = cardInfos.stream().filter(t->t.getNumber() == 1)
+                    .findAny().get();
+            info.setNumber(14);
+        }
     }
 }
