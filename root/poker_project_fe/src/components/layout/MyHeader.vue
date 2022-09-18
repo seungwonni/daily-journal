@@ -9,10 +9,14 @@
           <a class="navbar-brand" href="#">Hidden brand</a>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <router-link to="/">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </router-link>
             </li>
             <li class="nav-item">
+              <router-link to="/about">
               <a class="nav-link" href="#">Link</a>
+              </router-link>
             </li>
             <li class="nav-item">
               <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

@@ -4,16 +4,18 @@ import com.poker_project.dto.CardInfo;
 import com.poker_project.dto.CompletedCardInfo;
 import com.poker_project.dto.PokerUserInfo;
 import com.poker_project.view.ShowResult;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Service
 public class SettingCardService {
     //참여할 플레이어 갯수
 
     ShowResult view = new ShowResult();
-    private final Integer players = 2;
+    private Integer players = 0;
     private List<PokerUserInfo> playerCard = new ArrayList<>();
     private List<CardInfo> cardList= new ArrayList<>();
     private List<CardInfo> board = new ArrayList<>();
@@ -26,6 +28,16 @@ public class SettingCardService {
         setTurn();
         setLiver();
         view.showResult(setCardInfoObj());
+    }
+    public CompletedCardInfo get(Integer playerNum) {
+        players = playerNum;
+        init();
+        setCard();
+        dealCard();
+        setFlop();
+        setTurn();
+        setLiver();
+        return setCardInfoObj();
     }
     private void init() {
         playerCard = new ArrayList<>();
