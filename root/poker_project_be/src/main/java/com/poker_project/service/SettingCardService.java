@@ -29,7 +29,7 @@ public class SettingCardService {
         setLiver();
         view.showResult(setCardInfoObj());
     }
-    public CompletedCardInfo get(Integer playerNum) {
+    public CompletedCardInfo setCard(Integer playerNum) {
         players = playerNum;
         init();
         setCard();

@@ -3,10 +3,7 @@ package com.poker_project.controller;
 import com.poker_project.service.SettingCardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +14,12 @@ import java.util.Map;
 @CrossOrigin( allowedHeaders = "*")
 public class MainController {
     private final SettingCardService settingCardService;
+
     @GetMapping(value = "/set-card")
     @ResponseBody
-    public Map<String, Object> main(Integer playerNum) {
+    public Map<String, Object> setCard(Integer playerNum) {
         Map<String, Object> result = new HashMap<>();
-        result.put("result", settingCardService.get(playerNum));
+        result.put("result", settingCardService.setCard(playerNum));
         return result;
     }
 
