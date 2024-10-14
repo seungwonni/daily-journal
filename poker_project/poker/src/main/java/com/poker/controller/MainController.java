@@ -11,34 +11,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/poker/home")
+@RequestMapping(value = "/main")
 @RequiredArgsConstructor
 @CrossOrigin( allowedHeaders = "*")
 public class MainController {
     private final SettingCardService settingCardService;
 
-    @GetMapping(value = "/set-card")
-    @ResponseBody
-    public Map<String, Object> setCard(Integer playerNum) {
-        Map<String, Object> result = new HashMap<>();
-        result.put("result", settingCardService.setCard(playerNum));
-        return result;
-    }
-
     @GetMapping(value = "/show-result")
-    public ModelAndView showResult() {
+    public ModelAndView showResult(String requestResult) {
         ModelAndView mnv = new ModelAndView();
-        Integer playerNum = 8;
-        CompletedCardInfo cardInfo = settingCardService.setCard(playerNum);
-
+        CompletedCardInfo cardInfo = settingCardService.setCard(1);
         mnv.addObject("board", cardInfo.getBoard());
         mnv.addObject("myCard", cardInfo.getPlayerCard());
-        mnv.setViewName("/index");
+        mnv.addObject("requestResult", requestResult);
+        mnv.setViewName("views/showResult");
         return mnv;
     }
 
-    public static void main(String[] args) {
-        SettingCardService settingCardService = new SettingCardService();
-        settingCardService.startGame();
+    @PostMapping(value="/retry")
+    @ResponseBody
+    public Object retry() {
+        Map result = new HashMap();
+        CompletedCardInfo cardInfo = settingCardService.setCard(1);
+        result.put("board", cardInfo.getBoard());
+        result.put("myCard", cardInfo.getPlayerCard());
+        return result;
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<th:block layout:fragment="views">
+    <script src="/js/main/showResult.js"></script>
+    <input type="hidden" th:value="${requestResult}" id="requestResult"/>
+    <div class="container" id="mainContainer">
+    <section class="page-section" id="showResultSection">
+        <div class="customCon">
+            <div th:each="board : ${board}">
+                <img class="boardCardImg" th:src="@{'/images/card/' + ${board} + '.png'}"
+                />
+            </div>
+        </div>
+
+        <div class="customCon">
+            <div class="customBox2" th:each="myCard : ${myCard}">
+                <img class="myCardImg" th:src="@{'/images/card/' + ${myCard.firstCard} + '.png'}"/>
+                <img class="myCardImg" th:src="@{'/images/card/' + ${myCard.secondCard} + '.png'}"/>
+                <p class="bigFontP" th:text= "${myCard.result}"></p>
+                <input type="hidden" th:value="${myCard.result}" id="result"/>
+            </div>
+
+            <div class="customBox3">
+                <p class="bigFontP"> 시도 횟수 : <span id="totalTry">0</span> 회</p>
+            </div>
+        </div>
+    </section>
+    </div>
+</th:block>
+</html>

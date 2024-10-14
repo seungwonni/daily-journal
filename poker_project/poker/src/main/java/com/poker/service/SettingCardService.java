@@ -3,7 +3,6 @@ package com.poker.service;
 import com.poker.dto.CardInfo;
 import com.poker.dto.CompletedCardInfo;
 import com.poker.dto.PokerUserInfo;
-import com.poker.view.ShowResult;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,8 +12,6 @@ import java.util.List;
 @Service
 public class SettingCardService {
     //참여할 플레이어 갯수
-
-    ShowResult view = new ShowResult();
     private Integer players = 0;
     private List<PokerUserInfo> playerCard = new ArrayList<>();
     private List<CardInfo> cardList= new ArrayList<>();
@@ -27,7 +24,6 @@ public class SettingCardService {
         setFlop();
         setTurn();
         setLiver();
-        view.showResult(setCardInfoObj());
     }
     public CompletedCardInfo setCard(Integer playerNum) {
         players = playerNum;
@@ -37,7 +33,6 @@ public class SettingCardService {
         setFlop();
         setTurn();
         setLiver();
-        view.showResult(setCardInfoObj());
         return setCardInfoObj();
     }
     private void init() {
