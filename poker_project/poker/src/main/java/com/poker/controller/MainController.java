@@ -20,7 +20,7 @@ public class MainController {
     @GetMapping(value = "/show-result")
     public ModelAndView showResult(String requestResult) {
         ModelAndView mnv = new ModelAndView();
-        CompletedCardInfo cardInfo = settingCardService.setCard(1);
+        CompletedCardInfo cardInfo = settingCardService.startProcess(1);
         mnv.addObject("board", cardInfo.getBoard());
         mnv.addObject("myCard", cardInfo.getPlayerCard());
         mnv.addObject("requestResult", requestResult);
@@ -32,7 +32,7 @@ public class MainController {
     @ResponseBody
     public Object retry() {
         Map result = new HashMap();
-        CompletedCardInfo cardInfo = settingCardService.setCard(1);
+        CompletedCardInfo cardInfo = settingCardService.startProcess(1);
         result.put("board", cardInfo.getBoard());
         result.put("myCard", cardInfo.getPlayerCard());
         return result;

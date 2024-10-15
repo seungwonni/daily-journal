@@ -3,6 +3,7 @@ package com.poker.service;
 import com.poker.dto.CardInfo;
 import com.poker.dto.CompletedCardInfo;
 import com.poker.dto.PokerUserInfo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SettingCardService {
     //참여할 플레이어 갯수
     private Integer players = 0;
@@ -17,15 +19,9 @@ public class SettingCardService {
     private List<CardInfo> cardList= new ArrayList<>();
     private List<CardInfo> board = new ArrayList<>();
 
-    public void startGame() {
-        init();
-        setCard();
-        dealCard();
-        setFlop();
-        setTurn();
-        setLiver();
-    }
-    public CompletedCardInfo setCard(Integer playerNum) {
+    private final CalculateResultService calculateResultService = new CalculateResultService();
+
+    public CompletedCardInfo startProcess(Integer playerNum) {
         players = playerNum;
         init();
         setCard();
@@ -33,6 +29,7 @@ public class SettingCardService {
         setFlop();
         setTurn();
         setLiver();
+        calculateResultService.calcResult(setCardInfoObj());
         return setCardInfoObj();
     }
     private void init() {

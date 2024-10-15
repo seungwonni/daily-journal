@@ -6,14 +6,20 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = "/home")
 @RequiredArgsConstructor
-public class IndexController {
+public class MainChoiceController {
 
-    @GetMapping()
+    @GetMapping(value = "/home")
+    public ModelAndView mainChoice() {
+        ModelAndView mnv = new ModelAndView();
+        mnv.setViewName("views/mainChoice");
+        return mnv;
+    }
+
+    @GetMapping(value = "/index")
     public ModelAndView index() {
         ModelAndView mnv = new ModelAndView();
-        mnv.setViewName("views/index");
+        mnv.setViewName("views/mainChoice");
         return mnv;
     }
 }
