@@ -10,8 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 public class MainChoiceController {
 
     @GetMapping(value = "/home")
-    public ModelAndView mainChoice() {
+    public ModelAndView mainChoice(String type) {
         ModelAndView mnv = new ModelAndView();
+        mnv.addObject("type", type);
         mnv.setViewName("views/mainChoice");
         return mnv;
     }
@@ -19,7 +20,7 @@ public class MainChoiceController {
     @GetMapping(value = "/index")
     public ModelAndView index() {
         ModelAndView mnv = new ModelAndView();
-        mnv.setViewName("views/mainChoice");
+        mnv.setViewName("views/index");
         return mnv;
     }
 }

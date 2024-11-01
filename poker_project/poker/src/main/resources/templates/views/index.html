@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<th:block layout:fragment="views">
+    <section class="page-section" id="portfolio">
+    <div class="container">
+        <div class="container d-flex align-items-center justify-content-center min-vh-100">
+            <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
+                <h3 class="text-center mb-4">로그인</h3>
+                <form th:action="@{/login}" method="post">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">이메일</label>
+                        <input type="email" class="form-control" id="email" name="email" th:value="${email}" required
+                               placeholder="이메일을 입력해 주세요.">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">비밀번호</label>
+                        <input type="password" class="form-control" id="password" name="password" th:value="${password}" required
+                        placeholder="비밀번호를 입력해 주세요.">
+                    </div>
+                    <button type="submit" class="btn btn-dark w-100"
+                    style="margin:0.8rem auto 0px;"
+                    >로그인</button>
+                    <button type="button" class="btn btn-primary w-100"
+                            style="margin:0.8rem auto 0px;"
+                            onclick="location.href='/home'"
+                    >카카오톡 로그인</button>
+                    <button type="button" class="btn btn-primary w-100"
+                            style="margin:0.8rem auto 0px;"
+                            onclick="location.href='/home?type=guest'"
+                    >로그인 없이 구경하기</button>
+                </form>
+                <p class="text-links" style="margin: 0; text-align: right;"><a href="/join">회원가입</a></p>
+
+                <!-- Error Message -->
+                <div th:if="${message}" class="alert alert-danger mt-3" th:text="${message}"></div>
+            </div>
+        </div>
+    </div>
+    </section>
+</th:block>
+</html>

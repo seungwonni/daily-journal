@@ -15,14 +15,20 @@ var pageObject = {
 var mainObj = {
     // 변수를 추가하여 AJAX 호출 중인지 여부를 추적합니다.
     isAjaxInProgress: false,
+    saveResultURL : "/ranking/save",
+    retryURL : "/main/retry",
 
     doMain: function () {
         if (mainObj.isSuccess()) {
             count = Number($('#totalTry').text());
             $('#totalTry').text(count);
-            alert("축하합니다!" + (count) + "회만에 성공했습니다~\n" +
+            if (confirm("축하합니다!" + (count) + "회만에 성공했습니다~\n" +
                 "확률 : " + ((1 / count) * 100).toFixed(4) + "%\n" +
-            "(" + mainObj.convertResult() +"평균 확률 : " + mainObj.convertRate() + ")" );
+            "(" + mainObj.convertResult() +"평균 확률 : " + mainObj.convertRate() + ")"  + "\n"
+                + "랭킹에 등록하시겠습니까?"
+            ) === true) {
+                mainObj.successProcess();
+            }
             return false; // 성공했으니 더 이상 호출하지 않음
         }
 
@@ -31,6 +37,27 @@ var mainObj = {
             this.isAjaxInProgress = true; // AJAX 호출 진행 중으로 설정
             this.processRetry();
         }
+    },
+    successProcess : function () {
+        var obj = {
+            "result": $('#requestResult').val(),
+            "count" : count,
+            "percent" : ((1 / count) * 100).toFixed(4)
+        };
+
+        $.ajax({
+                type: "POST",
+                url: mainObj.saveResultURL,
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(obj),
+                success: function (data, status, xhr) {
+
+                },
+                error: function (xhr, status, error) {
+                    $("#result").text(error);
+                },
+            });
     },
     convertResult : function () {
         var result = $('#requestResult').val();
@@ -60,7 +87,7 @@ var mainObj = {
         var obj = {"requestResult": $('#requestResult').val()};
         $.ajax({
             type: "POST",
-            url: "/main/retry",
+            url: mainObj.retryURL,
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(obj),

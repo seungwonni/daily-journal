@@ -1,5 +1,6 @@
 package com.poker.controller;
 
+import com.poker.dto.request.RankingRequest;
 import com.poker.entity.Ranking;
 import com.poker.service.RankingService;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,10 @@ public class RankingController {
         mnv.setViewName("views/ranking");
         return mnv;
     }
-    @PostMapping(value = "/insert")
-    public Object WriteRanking() {
-        Ranking ranking = new Ranking();
-        rankingService.save(ranking);
+    @PostMapping(value = "/save")
+    public Object WriteRanking(@RequestBody RankingRequest ranking) {
+        Ranking ranking1 = new Ranking();
+        rankingService.save(ranking1);
         return "";
     }
-
 }

@@ -11,7 +11,6 @@
                 />
             </div>
         </div>
-
         <div class="customCon">
             <div class="customBox2" th:each="myCard : ${myCard}">
                 <img class="myCardImg" th:src="@{'/images/card/' + ${myCard.firstCard} + '.png'}"/>
@@ -19,7 +18,6 @@
                 <p class="bigFontP" th:text= "${myCard.result}"></p>
                 <input type="hidden" th:value="${myCard.result}" id="result"/>
             </div>
-
             <div class="customBox3">
                 <p class="bigFontP"> 시도 횟수 : <span id="totalTry">0</span> 회</p>
             </div>

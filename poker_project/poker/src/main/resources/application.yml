@@ -7,7 +7,7 @@ spring:
       jdbc-url: jdbc:mysql://127.0.0.1:3306/poker_project?useUnicode=true&characterEncoding=utf8
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
-      password:
+      password: 1234
       auto-commit: false
       maximum-pool-size: 30
       idle-timeout: 10000
@@ -17,7 +17,5 @@ spring:
     prefix: classpath:/templates/   # .html 파일을 불러오기 위한 경로 설정(src/main/resources/templates)
     suffix: .html   # 파일 확장자
     cache: false
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+#  jpa:
+#    show-sql: true

@@ -31,7 +31,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'com.mysql:mysql-connector-java:8.0.33'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -42,3 +42,4 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+ㅍㅍ
