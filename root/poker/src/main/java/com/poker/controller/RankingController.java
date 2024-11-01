@@ -1,7 +1,7 @@
 package com.poker.controller;
 
 import com.poker.dto.request.RankingRequest;
-import com.poker.entity.Ranking;
+import com.poker.entity.RankingEntity;
 import com.poker.service.RankingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ public class RankingController {
     }
     @PostMapping(value = "/save")
     public Object WriteRanking(@RequestBody RankingRequest ranking) {
-        Ranking ranking1 = new Ranking();
+        RankingEntity ranking1 = new RankingEntity();
         rankingService.save(ranking1);
         return "";
     }

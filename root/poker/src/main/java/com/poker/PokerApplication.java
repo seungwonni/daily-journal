@@ -12,5 +12,4 @@ public class PokerApplication {
     public static void main(String[] args) {
         SpringApplication.run(PokerApplication.class, args);
     }
-
 }

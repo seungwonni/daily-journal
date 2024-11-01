@@ -1,6 +1,6 @@
 package com.poker.service;
 
-import com.poker.entity.Ranking;
+import com.poker.entity.RankingEntity;
 import com.poker.repository.RankingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ public class RankingService implements RankingServiceImpl {
     private final RankingRepository rankingRepository;
 
     @Override
-    public Integer save(Ranking ranking) {
+    public Integer save(RankingEntity ranking) {
         rankingRepository.save(ranking);
         return 1;
     }

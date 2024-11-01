@@ -1,5 +1,6 @@
 package com.poker;
 
+import com.poker.dto.CompletedCardInfo;
 import com.poker.service.SettingCardService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -13,9 +14,10 @@ class PokerApplicationTests {
 
     private final SettingCardService settingCardService;
 
+
     @Test
     void 스트레이프플러쉬테스트() {
-        settingCardService.startGame();
+        CompletedCardInfo cardInfo = settingCardService.startProcess(1);
     }
 
 }

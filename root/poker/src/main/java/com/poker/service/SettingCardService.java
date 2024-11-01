@@ -74,7 +74,7 @@ public class SettingCardService {
                 board.add(cardList.get(i));cardList.remove(cardList.get(i));
         }
     }
-    //첫카드는 버리고 보드 객체에 저장
+    //카드 한 장 버리고 보드 객체에 저장
     private void setTurn() {
         for (int i =0; i < 2; i++) {
             if (i == 0)
@@ -83,7 +83,7 @@ public class SettingCardService {
                 board.add(cardList.get(i));cardList.remove(cardList.get(i));
         }
     }
-    //첫카드는 버리고 보드 객체에 저장
+    //마지막 카드는 버리고 보드 객체에 저장
     private void setLiver() {
         for (int i =0; i < 2; i++) {
             if (i == 0)

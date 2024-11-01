@@ -9,11 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="LOGIN")
-public class LoginEntity {
+@Table(name="RANKING")
+public class RankingEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String email;
-    private String password;
-    private String nickname;
+    private Integer rankNum;
+    private String id;
+    private String rate;
+    private String name;
 }
