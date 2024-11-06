@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 var pageObject = {
-    joinURL : "/join",
+    joinURL : "/common/join",
     init : function(){
         var me = this;
         me.bind();
@@ -38,7 +38,13 @@ var pageObject = {
             contentType: "application/json",
             data: JSON.stringify(obj),
             success: function (data, status, xhr) {
-
+                if (data.result == 1) {
+                    alert("회원가입이 완료되었습니다.");
+                    window.location.href = "/index";
+                    return false;
+                }
+                alert("아이디가 중복되었습니다. 다시 확인 바랍니다.");
+                return false;
             },
             error: function (xhr, status, error) {
                 $("#result").text(error);

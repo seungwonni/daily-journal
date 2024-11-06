@@ -2,20 +2,23 @@
 spring:
   profiles:
     active: local
-  mysql:
-    datasource:
-      jdbc-url: jdbc:mysql://127.0.0.1:3306/poker_project?useUnicode=true&characterEncoding=utf8
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      username: root
-      password: 1234
-      auto-commit: false
-      maximum-pool-size: 30
-      idle-timeout: 10000
-      minimum-idle: 10
+  datasource:
+    url: jdbc:mysql://localhost:3306/poker_project?useUnicode=true&characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+    auto-commit: false
+    maximum-pool-size: 30
+    idle-timeout: 10000
+    minimum-idle: 10
   thymeleaf:
     check-template-location: true
     prefix: classpath:/templates/   # .html 파일을 불러오기 위한 경로 설정(src/main/resources/templates)
     suffix: .html   # 파일 확장자
     cache: false
-#  jpa:
-#    show-sql: true
+  jpa:
+    show-sql: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
