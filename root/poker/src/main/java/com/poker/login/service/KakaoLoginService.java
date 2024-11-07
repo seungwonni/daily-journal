@@ -63,7 +63,6 @@ public class KakaoLoginService implements KakaoLoginServiceImpl {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
 

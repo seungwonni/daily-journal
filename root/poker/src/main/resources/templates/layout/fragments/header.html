@@ -17,11 +17,16 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/css/styles.css" rel="stylesheet" />
+        <link href="/css/custom.css" rel="stylesheet" />
     </head>
     <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
         <div class="container">
+            <h1 class="main-logo">
+                <img th:src="@{'/images/common/logo.png'}" class="main-logo"/>
+            </h1>
+
             <a class="navbar-brand" href="/home">확률 시뮬레이션</a>
             <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
@@ -29,9 +34,21 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item mx-0 mx-lg-1"><p class="nav-link py-3 px-0 px-lg-3 rounded" id="header11">확률 안내</p></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" id="header1">확률 안내</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/ranking">랭킹</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" id="navLi1">
+                        <p class="nav-link py-3 px-0 px-lg-3 rounded" id="nickname">
+                            <!-- 로그인 되어 있으면 닉네임을 표시하고, 아니면 빈 값으로 유지 -->
+                            <span th:text="${session.nickname != null ? session.nickname : ''}"></span>
+                        </p>
+                    </li>
+                    <li class="nav-item mx-0 mx-lg-1" id="navLi2"><a class="nav-link py-3 px-0 px-lg-3 rounded" id="header1">확률 안내</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" id="navLi3"><a class="nav-link py-3 px-0 px-lg-3 rounded" th:href="@{/ranking}">랭킹</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" id="navLi4">
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded aBtn"
+                           th:if="${session.userId != null}"
+                           th:href="@{/common/logout}">
+                            로그아웃
+                        </a>
+                    </li>
                 </ul>
                 <div class="modal" id="headerModal1" tabindex="-1">
                     <div class="modal-dialog">

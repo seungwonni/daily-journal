@@ -3,17 +3,18 @@ $(document).ready(function () {
 });
 
 var pageObject = {
-    commonLoginURL : "common/login",
+    commonLoginURL : "/common/login",
+    homeURL : "/home",
     init : function(){
         var me = this;
+        if (window.location.href.indexOf('kakao-login') > 1) {
+            window.location.href = this.homeURL +
+                "?type=kakao" +
+                "&nickname=" + $('#nickname').val();
+        }
         me.bind();
     },
     bind : function () {
-        $('.drawCard').bind('click', function (event) {
-            const request = event.currentTarget.id;
-            window.location.href = "/main/show-result?requestResult="+request;
-        });
-
         $('#commonLoginBtn').bind('click', function () {
             pageObject.processCommonLogin();
         });
@@ -35,7 +36,9 @@ var pageObject = {
             success: function (data, status, xhr) {
                 if (data.result == 1) {
                     alert("로그인이 성공되었습니다.");
-                    window.location.href = "/home?type=common";
+                    window.location.href = pageObject.homeURL +
+                        "?type=common" +
+                        "&nickname=" + data.data.nickname;
                     return false;
                 }
                 alert("로그인에 실패하였습니다.\n"+

@@ -17,4 +17,12 @@ public class Login {
                 .nickname(this.nickname)
                 .build();
     }
+
+    public Login getUserInfo(String email, String nickname) {
+        Login login = new Login();
+        login.email = email;
+        login.nickname = nickname;
+        return login;
+    }
+
 }

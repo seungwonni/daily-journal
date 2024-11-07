@@ -2,8 +2,13 @@ package com.poker.login.service;
 
 import com.poker.login.entity.LoginEntity;
 import com.poker.login.repository.LoginRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -21,12 +26,19 @@ public class LoginService implements LoginServiceImpl {
     }
 
     @Override
-    public Integer login(LoginEntity login) {
+    public Map<String, Object> login(LoginEntity login, HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<>();
         LoginEntity savedLogin = loginRepository.findByEmail(login.getEmail());
         if (login.getPassword().equals(savedLogin.getPassword())) {
-            return 1;
-        }
-        return 0;
+            HttpSession session = request.getSession();
+            session.setMaxInactiveInterval(1800);
+            session.setAttribute("userId", savedLogin.getEmail());
+            session.setAttribute("nickname", savedLogin.getNickname());
+            result.put("result", "1");
+            result.put("data", savedLogin);
+        } else
+            result.put("result", "0");
+        return result;
     }
 
     public Boolean existsByEmail(String email) {

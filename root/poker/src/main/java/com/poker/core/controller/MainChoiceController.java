@@ -17,7 +17,7 @@ public class MainChoiceController {
         return mnv;
     }
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/index")
     public ModelAndView index() {
         ModelAndView mnv = new ModelAndView();
         mnv.setViewName("views/index");

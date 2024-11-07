@@ -40,8 +40,8 @@ var mainObj = {
     },
     successProcess : function () {
         var obj = {
-            "result": $('#requestResult').val(),
-            "count" : count,
+            "handRanking": $('#requestResult').val(),
+            "tryCount" : count,
             "percent" : ((1 / count) * 100).toFixed(4)
         };
 
