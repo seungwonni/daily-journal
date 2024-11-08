@@ -1,11 +1,11 @@
 package com.poker.login.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.util.Map;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface KakaoLoginServiceImpl {
 
-    Map login(String code) throws JsonProcessingException;
+    void login(String code, HttpServletRequest request) throws JsonProcessingException;
+    void logout(HttpServletRequest request) throws JsonProcessingException;
 
 }

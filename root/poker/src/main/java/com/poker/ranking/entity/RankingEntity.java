@@ -15,14 +15,10 @@ public class RankingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rankNum;
     //Login 객체에서 셋팅
-    private String email;
     private String nickname;
     //RankingRequest 객체에서 셋팅
     private Integer tryCount;
     private String handRanking;
     private Double percent;
-    //계산 필요
-    private Integer ranking;
-
 
 }

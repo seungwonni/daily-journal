@@ -12,7 +12,6 @@ public class MainChoiceController {
     @GetMapping(value = "/home")
     public ModelAndView mainChoice(String type) {
         ModelAndView mnv = new ModelAndView();
-        mnv.addObject("type", type);
         mnv.setViewName("views/mainChoice");
         return mnv;
     }

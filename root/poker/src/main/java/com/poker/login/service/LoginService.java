@@ -31,7 +31,7 @@ public class LoginService implements LoginServiceImpl {
         LoginEntity savedLogin = loginRepository.findByEmail(login.getEmail());
         if (login.getPassword().equals(savedLogin.getPassword())) {
             HttpSession session = request.getSession();
-            session.setMaxInactiveInterval(1800);
+            session.setMaxInactiveInterval(18000);
             session.setAttribute("userId", savedLogin.getEmail());
             session.setAttribute("nickname", savedLogin.getNickname());
             result.put("result", "1");

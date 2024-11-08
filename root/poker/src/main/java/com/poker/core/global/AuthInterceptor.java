@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
 public class AuthInterceptor  implements HandlerInterceptor {
@@ -18,9 +19,13 @@ public class AuthInterceptor  implements HandlerInterceptor {
         HttpSession session = request.getSession(false);
         if(session == null || session.getAttribute("userId") == null) {
             // 로그인 되지 않음
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
             System.out.println("[미인증 사용자 요청]");
-            //로그인으로 redirect
-            response.sendRedirect("/index");
+            out.println("<script>alert('권한이 없습니다. 로그인 해주세요.');" +
+                    "location.href='/index';</script>");
+            out.flush();
+            out.close();
             return false;
         }
         // 로그인 되어있을 떄

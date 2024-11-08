@@ -13,7 +13,6 @@ var pageObject = {
 };
 
 var mainObj = {
-    // 변수를 추가하여 AJAX 호출 중인지 여부를 추적합니다.
     isAjaxInProgress: false,
     saveResultURL : "/ranking/save",
     retryURL : "/main/retry",

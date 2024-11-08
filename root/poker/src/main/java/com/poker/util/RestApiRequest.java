@@ -7,8 +7,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
-
 public class RestApiRequest {
     public static String request(String method, String url, MultiValueMap<String, Object> body, HttpHeaders headers) {
         RestTemplate restTemplate = new RestTemplate();

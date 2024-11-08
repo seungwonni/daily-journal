@@ -7,11 +7,7 @@ var pageObject = {
     homeURL : "/home",
     init : function(){
         var me = this;
-        if (window.location.href.indexOf('kakao-login') > 1) {
-            window.location.href = this.homeURL +
-                "?type=kakao" +
-                "&nickname=" + $('#nickname').val();
-        }
+
         me.bind();
     },
     bind : function () {

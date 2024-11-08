@@ -27,6 +27,8 @@ public class WebConfig implements WebMvcConfigurer {
 				.addPathPatterns("/**")
 				.excludePathPatterns("/common/login/**"
 						, "/index*"
+						,"/kakao-login/**"
+						, "/common/guest-login/**"
 						, "/common/join*"
 						, "/js/**"
 						, "/css/**"

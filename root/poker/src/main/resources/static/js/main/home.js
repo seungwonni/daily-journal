@@ -18,5 +18,8 @@ var pageObject = {
         });
     },
     setInit : function () {
+        if (window.location.href.indexOf('kakao-login') > 1) {
+            window.location.href = pageObject.homeURL;
+        }
     },
 }

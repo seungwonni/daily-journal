@@ -2,9 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
 <th:block layout:fragment="views">
     <script src="/js/main/ranking.js"></script>
-    <input type="hidden" th:value="${requestResult}" id="requestResult"/>
     <div class="container" id="mainContainer">
     <section class="page-section" id="showResultSection">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" id="STRAIGHT_FLUSH">스티플</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="FOUR_OF_A_KIND">포카드</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="FULL_HOUSE">풀하우스</a>
+            </li>
+        </ul>
+
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>랭킹</th>
+                <th>닉네임</th>
+                <th>시도 횟수</th>
+                <th>확률</th>
+            </tr>
+            </thead>
+            <tbody id="rankingTable">
+            <tr>
+                <th scope="row">3</th>
+                <td colspan="2" class="table-active">Larry the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td colspan="2" class="table-active">Larry the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            </tbody>
+        </table>
     </section>
     </div>
 </th:block>

@@ -1,17 +1,17 @@
 package com.poker.ranking.controller;
 
 import com.poker.login.dto.Login;
-import com.poker.ranking.entity.RankingEntity;
 import com.poker.ranking.dto.request.RankingRequest;
 import com.poker.ranking.service.RankingService;
 import com.poker.util.UserInfoUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/ranking")
@@ -28,10 +28,17 @@ public class RankingController {
         return mnv;
     }
 
+    @GetMapping("/list")
+    @ResponseBody
+    public Map<String, Object> getRanking(@RequestParam String handRanking) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("data", rankingService.getTopRankingList(handRanking));
+        return result;
+    }
+
     @PostMapping(value = "/save")
-    public Object WriteRanking(@RequestBody RankingRequest ranking, HttpServletRequest request) {
+    public Object save(@RequestBody RankingRequest ranking, HttpServletRequest request) {
         Login login = UserInfoUtil.getUserInfo(request);
-        rankingService.save(ranking, login);
-        return "";
+        return rankingService.save(ranking, login);
     }
 }

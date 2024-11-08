@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.poker.login.dto.KakaoOauth;
 import com.poker.util.RestApiRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,10 +19,30 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class KakaoLoginService implements KakaoLoginServiceImpl {
     @Override
-    public Map login(String code) throws JsonProcessingException {
+    public void login(String code, HttpServletRequest request) throws JsonProcessingException {
         KakaoOauth oauth = getOauth(code);
-        return getUserInfo(oauth);
+        Map map = getUserInfo(oauth);
+        setLoginSession(map, request, oauth);
     }
+
+    @Override
+    public void logout(HttpServletRequest request) throws JsonProcessingException {
+        String url = "https://kapi.kakao.com/v1/user/unlink";
+        HttpHeaders headers = new HttpHeaders();
+        HttpSession session = request.getSession();
+        String accessToken = (String) session.getAttribute("KakaoAccessToken");
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // Body set
+        MultiValueMap<String,Object> body = new LinkedMultiValueMap<>();
+
+        body.add("target_id_type", "authorization_code");
+        body.add("target_id", Long.valueOf((String) session.getAttribute("userId")));
+
+        String response = RestApiRequest.request("post", url, body, headers);
+
+    }
+
     private KakaoOauth getOauth(String code) throws JsonProcessingException {
         String url = "https://kauth.kakao.com/oauth/token";
         // Header set
@@ -63,6 +85,14 @@ public class KakaoLoginService implements KakaoLoginServiceImpl {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void setLoginSession(Map map, HttpServletRequest request, KakaoOauth oauth) {
+        String userId= String.valueOf(map.get("id"));
+        String nickname = (String) ((Map) map.get("properties")).get("nickname");
+        request.getSession().setAttribute("userId", userId);
+        request.getSession().setAttribute("nickname", nickname);
+        request.getSession().setAttribute("KakaoAccessToken", oauth.getAccess_token());
     }
 }
 
