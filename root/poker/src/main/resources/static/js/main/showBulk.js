@@ -1,5 +1,5 @@
 var count = 0;
-var time = 100; // 간격 시간
+var time = 10; // 간격 시간
 
 $(document).ready(function () {
     pageObject.init();
@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 var pageObject = {
     init: function() {
-        var me = this;
+        mainObj.getBulkCard();
         mainObj.doMain();
     },
 };
@@ -15,7 +15,7 @@ var pageObject = {
 var mainObj = {
     isAjaxInProgress: false,
     saveResultURL : "/ranking/save",
-    retryURL : "/main/retry",
+    retryURL : "/main/retry-bulk",
 
     doMain: function () {
         if (mainObj.isSuccess()) {
@@ -30,12 +30,10 @@ var mainObj = {
             }
             return false; // 성공했으니 더 이상 호출하지 않음
         }
+        setTimeout(function () {
+            mainObj.processRetry(); // 일정 시간이 지나면 doMain() 호출
+        }, time);
 
-        // AJAX 호출이 진행 중이 아니면 시작합니다.
-        if (!this.isAjaxInProgress) {
-            this.isAjaxInProgress = true; // AJAX 호출 진행 중으로 설정
-            this.processRetry();
-        }
     },
     successProcess : function () {
         var obj = {
@@ -61,6 +59,8 @@ var mainObj = {
     convertResult : function () {
         var result = $('#requestResult').val();
         switch (result) {
+            case "ROYAL_STRAIGHT_FLUSH" :
+                return "로얄 스트레이트 플러쉬!!!";
             case "STRAIGHT_FLUSH" :
                 return "스트레이트 플러쉬";
             case "FULL_HOUSE" :
@@ -72,6 +72,8 @@ var mainObj = {
     convertRate : function () {
         var result = $('#requestResult').val();
         switch (result) {
+            case "ROYAL_STRAIGHT_FLUSH" :
+                return "0.000154%";
             case "STRAIGHT_FLUSH" :
                 return "0.029%";
             case "FULL_HOUSE" :
@@ -80,8 +82,10 @@ var mainObj = {
                 return "0.16%";
         }
     },
-    processRetry: function () {
-        console.log("processRetry");
+    processRetry : function () {
+
+    },
+    getBulkCard : function () {
         var obj = {"requestResult": $('#requestResult').val()};
         $.ajax({
             type: "POST",
@@ -90,26 +94,26 @@ var mainObj = {
             contentType: "application/json",
             data: JSON.stringify(obj),
             success: function (data, status, xhr) {
-                mainObj.clearSection();
-                mainObj.drawSection(data);
+                var cardInfos = data.cardInfos;
+                for (var i = 0 ; i < cardInfos.length; i++) {
+                    var result = cardInfos[i].playerCard[0].result;
+                    if (mainObj.isSuccess(result)) {
+                        mainObj.clearSection();
+                        mainObj.drawSection(cardInfos[i]);
+                    }
+                }
                 // 시도 횟수 업데이트
                 count++; // count 증가
                 $('#totalTry').text(count); // UI에 업데이트
             },
             error: function (xhr, status, error) {
                 $("#result").text(error);
-            },
-            complete: function () {
-                mainObj.isAjaxInProgress = false; // AJAX 호출이 끝났으므로 상태를 초기화
-                setTimeout(function () {
-                    mainObj.doMain(); // 일정 시간이 지나면 doMain() 호출
-                }, time);
             }
         }); // end ajax
     },
 
-    isSuccess: function () {
-        return $('#requestResult').val() === $('#result').val();
+    isSuccess: function (result) {
+        return $('#requestResult').val() === result;
     },
 
     clearSection: function () {

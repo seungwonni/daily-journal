@@ -4,10 +4,15 @@
     <script src="/js/main/home.js"></script>
     <section class="page-section" id="portfolio">
     <div class="container" th:style="${'height:250px'}">
-        <input type="hidden" th:value="${nickname}"/>
-        <button type="button" class="btn btn-dark drawCard" id="STRAIGHT_FLUSH">스티플 뽑기</button>
-        <button type="button" class="btn btn-dark drawCard" id="FOUR_OF_A_KIND">포카드 뽑기</button>
-        <button type="button" class="btn btn-dark drawCard" id="FULL_HOUSE">풀하우스 뽑기</button>
+        <h1>개선 전 기능(초당 10회)</h1>
+        <button type="button" class="btn btn-dark drawCard" name="STRAIGHT_FLUSH">스티플 뽑기</button>
+        <button type="button" class="btn btn-dark drawCard" name="FOUR_OF_A_KIND">포카드 뽑기</button>
+        <button type="button" class="btn btn-dark drawCard" name="FULL_HOUSE">풀하우스 뽑기</button>
+        <h1 style="margin-top: 50px;">개편 후 기능(초당 100회)</h1>
+        <button type="button" class="btn btn-dark bulkDrawCard" name="ROYAL_STRAIGHT_FLUSH">로티플 뽑기</button>
+        <button type="button" class="btn btn-dark bulkDrawCard" name="STRAIGHT_FLUSH">스티플 뽑기</button>
+        <button type="button" class="btn btn-dark bulkDrawCard" name="FOUR_OF_A_KIND">포카드 뽑기</button>
+        <button type="button" class="btn btn-dark bulkDrawCard" name="FULL_HOUSE">풀하우스 뽑기</button>
     </div>
     </section>
 </th:block>
