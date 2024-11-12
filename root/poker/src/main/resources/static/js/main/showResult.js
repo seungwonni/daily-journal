@@ -100,7 +100,6 @@ var mainObj = {
                 $("#result").text(error);
             },
             complete: function () {
-                mainObj.isAjaxInProgress = false; // AJAX 호출이 끝났으므로 상태를 초기화
                 setTimeout(function () {
                     mainObj.doMain(); // 일정 시간이 지나면 doMain() 호출
                 }, time);

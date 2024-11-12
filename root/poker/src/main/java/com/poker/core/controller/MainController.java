@@ -42,7 +42,6 @@ public class MainController {
     public Object retry() {
         Map result = new HashMap();
         CompletedCardInfo cardInfo = settingCardService.startProcess(1);
-        List<CompletedCardInfo> result1 = settingCardService.startBulkProcess(50);
         result.put("board", cardInfo.getBoard());
         result.put("myCard", cardInfo.getPlayerCard());
         return result;
@@ -50,10 +49,10 @@ public class MainController {
 
     @PostMapping(value="/retry-bulk")
     @ResponseBody
-    public Object retryBulk() {
+    public Object retryBulk(@RequestBody String requestResult) {
         Map result = new HashMap();
-        List<CompletedCardInfo> cardInfos = settingCardService.startBulkProcess(50);
-        result.put("cardInfos", cardInfos);
+        CompletedCardInfo cardInfo = settingCardService.startBulkProcess(requestResult);
+        result.put("cardInfo", cardInfo);
         return result;
     }
 }

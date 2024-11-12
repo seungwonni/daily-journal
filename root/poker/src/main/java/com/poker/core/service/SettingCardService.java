@@ -33,10 +33,9 @@ public class SettingCardService {
         return setCardInfoObj();
     }
 
-    public List<CompletedCardInfo> startBulkProcess(Integer repeatCount) {
-        List<CompletedCardInfo> result = new ArrayList<>();
-        for (int i = 0; i < repeatCount; i++) {
-            players = 1;
+    public CompletedCardInfo startBulkProcess(String requestResult) {
+        players = 1;
+        while (true) {
             init();
             setCard();
             dealCard();
@@ -44,9 +43,9 @@ public class SettingCardService {
             setTurn();
             setLiver();
             calculateResultService.calcResult(setCardInfoObj());
-            result.add(setCardInfoObj());
+            setCardInfoObj().getPlayerCard().get(0).getResult();
+            return setCardInfoObj();
         }
-        return result;
     }
     private void init() {
         playerCard = new ArrayList<>();

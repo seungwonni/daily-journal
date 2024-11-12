@@ -13,7 +13,7 @@ var pageObject = {
 };
 
 var mainObj = {
-    isAjaxInProgress: false,
+    canStop : false,
     saveResultURL : "/ranking/save",
     retryURL : "/main/retry-bulk",
 
@@ -30,9 +30,6 @@ var mainObj = {
             }
             return false; // 성공했으니 더 이상 호출하지 않음
         }
-        setTimeout(function () {
-            mainObj.processRetry(); // 일정 시간이 지나면 doMain() 호출
-        }, time);
 
     },
     successProcess : function () {
@@ -82,9 +79,6 @@ var mainObj = {
                 return "0.16%";
         }
     },
-    processRetry : function () {
-
-    },
     getBulkCard : function () {
         var obj = {"requestResult": $('#requestResult').val()};
         $.ajax({
@@ -94,24 +88,34 @@ var mainObj = {
             contentType: "application/json",
             data: JSON.stringify(obj),
             success: function (data, status, xhr) {
-                var cardInfos = data.cardInfos;
-                for (var i = 0 ; i < cardInfos.length; i++) {
-                    var result = cardInfos[i].playerCard[0].result;
-                    if (mainObj.isSuccess(result)) {
-                        mainObj.clearSection();
-                        mainObj.drawSection(cardInfos[i]);
-                    }
+                mainObj.processRetry(data);
+                if (mainObj.canStop) {
+                    $('#totalTry').text(count); // UI에 업데이트
+                } else {
+                    mainObj.getBulkCard();
                 }
-                // 시도 횟수 업데이트
-                count++; // count 증가
-                $('#totalTry').text(count); // UI에 업데이트
             },
             error: function (xhr, status, error) {
                 $("#result").text(error);
             }
         }); // end ajax
     },
+    processRetry : function (data){
+        var cardInfos = data.cardInfos;
+        for (var i = 0 ; i < cardInfos.length; i++) {
+            var result = cardInfos[i].playerCard[0].result;
+            if (mainObj.isSuccess(result)) {
+                mainObj.clearSection();
+                mainObj.drawSection(cardInfos[i]);
+                count++; // count 증가
+                mainObj.canStop = true;
+                return false;
+            }
+            // 조건이 만족하였기에 다시 시작
+            count++; // count 증가
+        }
 
+    },
     isSuccess: function (result) {
         return $('#requestResult').val() === result;
     },
@@ -134,7 +138,7 @@ var mainObj = {
 
         var customCon = $('<div>').addClass('customCon');
         section.append(customCon);
-        data.myCard.forEach(card => {
+        data.playerCard.forEach(card => {
             var customBox2 = $('<div>').addClass('customBox2');
             var firstCard = $('<img>').addClass('myCardImg').attr('src', '/images/card/' + card.firstCard + '.png');
             var secondCard = $('<img>').addClass('myCardImg').attr('src', '/images/card/' + card.secondCard + '.png');
