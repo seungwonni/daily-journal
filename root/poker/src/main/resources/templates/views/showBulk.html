@@ -3,6 +3,9 @@
 <th:block layout:fragment="views">
     <script src="/js/main/showBulk.js"></script>
     <input type="hidden" th:value="${requestResult}" id="requestResult"/>
+    <div class="mask">
+        <img class="loadingImg" th:src="@{'/images/common/loading.gif'}"/>>
+    </div>
     <div class="container" id="mainContainer">
         <section class="page-section" id="showResultSection">
         </section>

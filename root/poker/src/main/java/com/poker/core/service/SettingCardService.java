@@ -6,9 +6,7 @@ import com.poker.core.dto.PokerUserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +31,10 @@ public class SettingCardService {
         return setCardInfoObj();
     }
 
-    public CompletedCardInfo startBulkProcess(String requestResult) {
+    public Map startBulkProcess(String requestResult) {
         players = 1;
+        Integer count = 0;
+        Map<String, Object> result = new HashMap<>();
         while (true) {
             init();
             setCard();
@@ -43,8 +43,13 @@ public class SettingCardService {
             setTurn();
             setLiver();
             calculateResultService.calcResult(setCardInfoObj());
-            setCardInfoObj().getPlayerCard().get(0).getResult();
-            return setCardInfoObj();
+            ++count;
+            if (setCardInfoObj().getPlayerCard().get(0).getResult().name()
+                    .equalsIgnoreCase(requestResult)) {
+                result.put("tryCount", count);
+                result.put("cardInfo", setCardInfoObj());
+                return result;
+            }
         }
     }
     private void init() {

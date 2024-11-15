@@ -1,5 +1,4 @@
 var count = 0;
-var time = 10; // 간격 시간
 
 $(document).ready(function () {
     pageObject.init();
@@ -8,37 +7,29 @@ $(document).ready(function () {
 var pageObject = {
     init: function() {
         mainObj.getBulkCard();
-        mainObj.doMain();
     },
 };
 
 var mainObj = {
     canStop : false,
     saveResultURL : "/ranking/save",
-    retryURL : "/main/retry-bulk",
-
-    doMain: function () {
-        if (mainObj.isSuccess()) {
-            count = Number($('#totalTry').text());
-            $('#totalTry').text(count);
-            if (confirm("축하합니다!" + (count) + "회만에 성공했습니다~\n" +
-                "확률 : " + ((1 / count) * 100).toFixed(4) + "%\n" +
-            "(" + mainObj.convertResult() +"평균 확률 : " + mainObj.convertRate() + ")"  + "\n"
-                + "랭킹에 등록하시겠습니까?"
-            ) === true) {
-                mainObj.successProcess();
-            }
-            return false; // 성공했으니 더 이상 호출하지 않음
-        }
-
-    },
+    getURL : "/main/retry-bulk",
+    isRendering : false,
     successProcess : function () {
+        count = Number($('#totalTry').text());
+        $('#totalTry').text(count);
+        if (confirm("축하합니다!" + (count) + "회만에 성공했습니다~\n" +
+            "확률 : " + ((1 / count) * 100).toFixed(4) + "%\n" +
+            "(" + mainObj.convertResult() +"평균 확률 : " + mainObj.convertRate() + ")"  + "\n"
+            + "랭킹에 등록하시겠습니까?"
+        ) === false) {
+            return false;
+        }
         var obj = {
             "handRanking": $('#requestResult').val(),
             "tryCount" : count,
             "percent" : ((1 / count) * 100).toFixed(4)
         };
-
         $.ajax({
                 type: "POST",
                 url: mainObj.saveResultURL,
@@ -83,38 +74,26 @@ var mainObj = {
         var obj = {"requestResult": $('#requestResult').val()};
         $.ajax({
             type: "POST",
-            url: mainObj.retryURL,
+            url: mainObj.getURL,
             dataType: "json",
             contentType: "application/json",
             data: JSON.stringify(obj),
             success: function (data, status, xhr) {
-                mainObj.processRetry(data);
-                if (mainObj.canStop) {
-                    $('#totalTry').text(count); // UI에 업데이트
-                } else {
-                    mainObj.getBulkCard();
-                }
+                mainObj.processResult(data);
+                setTimeout(() => {
+                    mainObj.successProcess();
+                }, 100); // 비동기 작업을 0.1초 지연시키며 실행
             },
             error: function (xhr, status, error) {
                 $("#result").text(error);
             }
         }); // end ajax
     },
-    processRetry : function (data){
-        var cardInfos = data.cardInfos;
-        for (var i = 0 ; i < cardInfos.length; i++) {
-            var result = cardInfos[i].playerCard[0].result;
-            if (mainObj.isSuccess(result)) {
-                mainObj.clearSection();
-                mainObj.drawSection(cardInfos[i]);
-                count++; // count 증가
-                mainObj.canStop = true;
-                return false;
-            }
-            // 조건이 만족하였기에 다시 시작
-            count++; // count 증가
-        }
-
+    processResult : function (data){
+        var cardInfo = data.cardInfo;
+        mainObj.clearSection();
+        mainObj.drawSection(cardInfo);
+        $('#totalTry').text(data.tryCount);
     },
     isSuccess: function (result) {
         return $('#requestResult').val() === result;

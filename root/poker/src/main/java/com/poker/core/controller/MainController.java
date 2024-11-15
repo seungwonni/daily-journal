@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -49,10 +48,7 @@ public class MainController {
 
     @PostMapping(value="/retry-bulk")
     @ResponseBody
-    public Object retryBulk(@RequestBody String requestResult) {
-        Map result = new HashMap();
-        CompletedCardInfo cardInfo = settingCardService.startBulkProcess(requestResult);
-        result.put("cardInfo", cardInfo);
-        return result;
+    public Object retryBulk(@RequestBody Map<String, String> request) {
+        return settingCardService.startBulkProcess(request.get("requestResult"));
     }
 }
