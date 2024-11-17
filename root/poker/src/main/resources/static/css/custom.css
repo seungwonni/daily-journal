@@ -31,6 +31,8 @@
     float: left;
     height: 100%;
     width: 100px;
+    border-radius: 1.5rem;
+    margin-right: 10px;
 }
 
 .main-logo a {
@@ -84,7 +86,8 @@
 }
 
 .loadingImg {
-    position: relative;
+    position: fixed;
+    width: 30%;
     display: block;
     top: 50vh;
     transform: translateY(-50%);

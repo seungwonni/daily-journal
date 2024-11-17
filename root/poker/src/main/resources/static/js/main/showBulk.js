@@ -79,10 +79,15 @@ var mainObj = {
             contentType: "application/json",
             data: JSON.stringify(obj),
             success: function (data, status, xhr) {
+                setTimeout(() => {
+                    $('.mask').fadeOut();
+                    //$('.mask').attr("hidden", true);
+                }, 1500); // 비동기 작업을 0.1초 지연시키며 실행
                 mainObj.processResult(data);
                 setTimeout(() => {
                     mainObj.successProcess();
-                }, 100); // 비동기 작업을 0.1초 지연시키며 실행
+                }, 500); // 비동기 작업을 0.1초 지연시키며 실행
+
             },
             error: function (xhr, status, error) {
                 $("#result").text(error);
