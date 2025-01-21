@@ -306,7 +306,8 @@ figure {
 
 img,
 svg {
-  vertical-align: middle;
+  vertical-align: middle;    padding: 0px;
+  height: 130px;
 }
 
 table {
@@ -11045,4 +11046,17 @@ html {
 
 .copyright {
   background-color: #1a252f;
+}
+
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
 }
